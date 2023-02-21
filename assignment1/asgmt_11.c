@@ -4,7 +4,7 @@
 
 const char vowels[] = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'};
 
-int isvwl(char ch)
+bool isvwl(char ch)
 {
 	for (size_t i = 0; i < sizeof(vowels); i++) {
 		if (ch == vowels[i])
