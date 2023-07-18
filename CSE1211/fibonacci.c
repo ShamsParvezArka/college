@@ -13,10 +13,11 @@ size_t fibonacci(size_t n)
 
 int main()
 {
-	size_t n = 10;
-	printf("Fibonacci series within range [0, %zu] ", n);
-	for (size_t i = 0; i <= n; i++) {
-		if (i == n)
+	size_t lower_limit = 2;
+	size_t upper_limit = 10;
+	printf("Fibonacci series within range [%zu, %zu] ", lower_limit, upper_limit);
+	for (size_t i = lower_limit; i <= upper_limit; i++) {
+		if (i == upper_limit)
 			printf("%zu\n", fibonacci(i));
 		else 
 			printf("%zu, ", fibonacci(i));
