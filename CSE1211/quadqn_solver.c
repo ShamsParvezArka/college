@@ -3,6 +3,7 @@
 
 int main() 
 {
+	// Input section
 	double a, b, c;
 	printf("coefficient of x^2: ");
 	scanf("%lf", &a);
@@ -12,6 +13,7 @@ int main()
 	scanf("%lf", &c);
 	printf("YOUR EQUATION: %.1lfx^2 + %.1lfx + %.1lf = 0\n", a, b, c);
 
+	// Solving section 
 	double x_1, x_2;
 	double dis = b*b - 4*a*c;
 	if (dis == 0) {
