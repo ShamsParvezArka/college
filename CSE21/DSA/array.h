@@ -11,10 +11,10 @@ typedef struct Array {
 } Array;
 
 Array array_init(size_t size);
-void array_push(Array *a, int item);
-void array_insert(Array *a, size_t index, int item);
-void array_fill(Array *a, size_t begin, size_t end, int c);
-void array_erase(Array *a, size_t index);
+void array_push(Array *arr, int item);
+void array_insert(Array *arr, size_t index, int item);
+void array_fill(Array *arr, size_t begin, size_t end, int c);
+void array_erase(Array *arr, size_t index);
 size_t array_search(Array haystack, int needle);
 
 #endif //ARRAY_H
@@ -23,62 +23,62 @@ size_t array_search(Array haystack, int needle);
 
 Array array_init(size_t size)
 {
-	Array a = {
-		.items = malloc(sizeof(*a.items)*size),
+	Array arr = {
+		.items = malloc(sizeof(*arr.items)*size),
 		.count = 0,
 		.size = size
 	};
-	memset(a.items, 0, sizeof(*a.items)*a.size);
-	return a;
+	memset(arr.items, 0, sizeof(*arr.items)*arr.size);
+	return arr;
 }
 
-void array_push(Array *a, int item)
+void array_push(Array *arr, int item)
 {
-	if (a->count >= a->size - 1) {
+	if (arr->count >= arr->size - 1) {
 		printf("%s: error: [overflow] heap memory limit reached\n", __FILE__);
 		exit(1);
 	}
-	a->items[a->count] = item;
-	a->count++;
+	arr->items[arr->count] = item;
+	arr->count++;
 }
 
-void array_insert(Array *a, size_t index, int item)
+void array_insert(Array *arr, size_t index, int item)
 {
-	if (a->count >= a->size - 1) {
+	if (arr->count >= arr->size - 1) {
 		printf("%s: error: [overflow] heap memory limit reached\n", __FILE__);
 		exit(1);
 	}
-	if (a->size < index) {
+	if (arr->size < index) {
 		printf("%s: error: [overflow] index is out of bound\n", __FILE__);
 		exit(1);
 	}
-	if (a->count > index) {
-		for (size_t i = a->count; i > index; i--) {
-			a->items[i] = a->items[i - 1];
+	if (arr->count > index) {
+		for (size_t i = arr->count; i > index; i--) {
+			arr->items[i] = arr->items[i - 1];
 		}
-		a->items[index] = item;
+		arr->items[index] = item;
 	}
-	if (a->count < index && a->size > index)
-		a->items[index] = item;
-	a->count++;
+	if (arr->count < index && arr->size > index)
+		arr->items[index] = item;
+	arr->count++;
 }
 
-void array_fill(Array *a, size_t begin, size_t end, int c)
+void array_fill(Array *arr, size_t begin, size_t end, int c)
 {
 	for (size_t i = begin; i <= end; i++)
-		a->items[i] = c;
+		arr->items[i] = c;
 }
 
-void array_erase(Array *a, int index)
+void array_erase(Array *arr, int index)
 {
-	if (a->count == 0) {
+	if (arr->count == 0) {
 		printf("%s: error: [underflow] heap memory is empty\n", __FILE__);
 		exit(1);
 	}
-	for (int i = index; i < a->size; i++) {
-		a->items[i] = a->items[i + 1];
+	for (int i = index; i < arr->size; i++) {
+		arr->items[i] = arr->items[i + 1];
 	}
-	a->count--;
+	arr->count--;
 }
 
 size_t array_search(Array haystack, int needle)
