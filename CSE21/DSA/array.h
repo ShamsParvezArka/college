@@ -67,7 +67,7 @@ void array_pop_front(array *arr)
 		printf("%s: error: [underflow] heap memory is empty\n", __FILE__);
 		exit(1);
 	}
-	for (size_t i = 0; i < arr->size; i++) {
+	for (size_t i = 0; i < arr->count - 1; i++) {
 		MOD_ARRAY_AT(arr, i) = MOD_ARRAY_AT(arr, i + 1);
 	}
 	MOD_ARRAY_AT(arr, arr->count) = '\0';
@@ -111,10 +111,13 @@ void array_erase(array *arr, size_t index)
 		printf("%s: error: [underflow] heap memory is empty\n", __FILE__);
 		exit(1);
 	}
-	for (size_t i = index; i < arr->size; i++) {
-		MOD_ARRAY_AT(arr, i) = MOD_ARRAY_AT(arr, i + 1);
+	if (index < arr->count - 1) {
+		for (size_t i = index; i < arr->count - 1; i++)
+			MOD_ARRAY_AT(arr, i) = MOD_ARRAY_AT(arr, i + 1);
+		MOD_ARRAY_AT(arr, arr->count) = '\0';
 	}
-	MOD_ARRAY_AT(arr, arr->count);
+	if (index == arr->count - 1)
+		MOD_ARRAY_AT(arr, index) = '\0';
 	arr->count--;
 }
 
