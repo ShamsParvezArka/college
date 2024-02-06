@@ -94,14 +94,10 @@ void array_insert(array *arr, size_t index, int item)
 		printf("%s: error: [overflow] index is out of bound\n", __FILE__);
 		exit(1);
 	}
-	if (arr->count > index) {
-		for (size_t i = arr->count; i > index; i--) {
-			MOD_ARRAY_AT(arr, i) = MOD_ARRAY_AT(arr, i - 1);
-		}
-		MOD_ARRAY_AT(arr, index) = item;
+	for (size_t i = arr->count; i > index; i--) {
+		MOD_ARRAY_AT(arr, i) = MOD_ARRAY_AT(arr, i - 1);
 	}
-	if (arr->count < index && arr->size > index)
-		MOD_ARRAY_AT(arr, index) = item;
+	MOD_ARRAY_AT(arr, index) = item;
 	arr->count++;
 }
 
@@ -111,20 +107,18 @@ void array_erase(array *arr, size_t index)
 		printf("%s: error: [underflow] heap memory is empty\n", __FILE__);
 		exit(1);
 	}
-	if (index < arr->count - 1) {
-		for (size_t i = index; i < arr->count - 1; i++)
-			MOD_ARRAY_AT(arr, i) = MOD_ARRAY_AT(arr, i + 1);
-		MOD_ARRAY_AT(arr, arr->count) = '\0';
+	for (size_t i = index; i < arr->count - 1; i++) {
+		MOD_ARRAY_AT(arr, i) = MOD_ARRAY_AT(arr, i + 1);
 	}
-	if (index == arr->count - 1)
-		MOD_ARRAY_AT(arr, index) = '\0';
+	MOD_ARRAY_AT(arr, arr->count) = '\0';
 	arr->count--;
 }
 
 void array_fill(array *arr, size_t begin, size_t end, int c)
 {
-	for (size_t i = begin; i <= end; i++)
+	for (size_t i = begin; i < end; i++) {
 		MOD_ARRAY_AT(arr, i) = c;
+	}
 }
 
 size_t array_search(array haystack, int needle)
