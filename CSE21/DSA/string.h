@@ -14,7 +14,7 @@ typedef struct strign {
 
 string string_init(const char *str);
 string string_slice(string s, size_t begin, size_t end);
-void string_append(string *s, const char *str);
+void string_push_back(string *s, const char *str);
 void string_erase(string *s, size_t begin, size_t end); //[begin, end)
 
 #endif //STRING_H
@@ -33,7 +33,7 @@ string string_init(char *str)
 	return s;
 }
 
-void string_append(string *s, const char *str)
+void string_push_back(string *s, const char *str)
 {
 	if (s->length >= s->capacity) {
 		size_t new_capacity =  s->capacity + s->capacity*GROWTH_FACTOR;
