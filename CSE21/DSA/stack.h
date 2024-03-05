@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 #define STACK_AT(s, i) stack_peak((s), (i))
+#define MOD_STACK_AT(s, i) (s)->items[(i)]
 
 typedef struct stack {
 	int *items;
@@ -42,7 +43,10 @@ void stack_push(stack *s, int item)
 		printf("\nerror: stack overflow");
 		exit(EXIT_FAILURE);
 	}
-	s->items[s->count] = item;
+	for (size_t i = s->count; i > 0; i--) {
+		MOD_STACK_AT(s, i) = MOD_STACK_AT(s, i - 1);
+	}
+	MOD_STACK_AT(s, 0) = item;
 	s->count++;
 	s->top++;
 }
